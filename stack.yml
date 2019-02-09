@@ -6,10 +6,8 @@ services:
       - plex_data:/data
       - plex_temp:/transcode
       - plex_database:/config
-    # networks:
-    #   - home
-    #deploy:
-    #  replicas: 1
+    deploy:
+      replicas: 1
     environment:
       - PLEX_CLAIM=claim-24DfzGrQc7p1sfK3F5x5
       - HOSTNAME=PlexServer
@@ -23,30 +21,24 @@ services:
       - '32412:32412/udp'
       - '32413:32413/udp'
       - '32414:32414/udp'
+    networks:
+      - media
   transmission-daemon:
-    build: /transmission-daemon
-    container_name: transmission-daemon
+    image: dimanlin/transmission-daemon
+    deploy:
+      replicas: 1
     volumes:
-      - deluge_config:/config
-      - deluge_download:/download
-      - plex_data:/completed
-      - deluge_torrent_files:/torrent_files
-      - deluge_autoadd_torrent:/autoadd_torrent
-    environment:
-      - PUID=1001
-      - PGID=1001
+      - transmission:/transmission
+      # - plex_data:/transmission/download
     ports:
-      - '8112:8112/tcp'
+      - '51413:51413'
+      - '9091:9091'
+    networks:
+      - media
 networks:
   media:
-    driver: overlay
 volumes:
   plex_data:
   plex_temp:
   plex_database:
-  deluge_download:
-  deluge_config:
-  deluge_torrent_files:
-  deluge_autoadd_torrent:
-
-# sudo docker run --rm --name plex -h server -e ADVERTISE_IP=http://192.168.0.110:32400 -e PLEX_CLAIM="claim-KpRpUq2V6eE9CbApfYwc" --mount 'type=volume,src=videoserver_data,dst=/data' --mount 'type=volume,src=videoserver_temp,dst=/transcode' --mount 'type=volume,src=videoserver_database,dst=/config' -p 32400:32400/tcp -p 3005:3005/tcp -p 8324:8324/tcp -p 32469:32469/tcp -p 1900:1900/udp -p 32410:32410/udp -p 32412:32412/udp -p 32413:32413/udp -p 32414:32414/udp plexinc/pms-docker
+  transmission:
