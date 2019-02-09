@@ -11,7 +11,7 @@ services:
     #deploy:
     #  replicas: 1
     environment:
-      - PLEX_CLAIM=claim-MyQ2hrSwkeq2PrkqNUdv
+      - PLEX_CLAIM=claim-24DfzGrQc7p1sfK3F5x5
       - HOSTNAME=PlexServer
     ports:
       - '32400:32400/tcp'
@@ -23,9 +23,9 @@ services:
       - '32412:32412/udp'
       - '32413:32413/udp'
       - '32414:32414/udp'
-  deluge:
-    image: linuxserver/deluge
-    container_name: deluge
+  transmission-daemon:
+    build: /transmission-daemon
+    container_name: transmission-daemon
     volumes:
       - deluge_config:/config
       - deluge_download:/download
