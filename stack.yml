@@ -24,7 +24,7 @@ services:
     networks:
       - media
   transmission-daemon:
-    image: dimanlin/transmission-daemon
+    image: dimanlin/transmission-daemon:latest
     deploy:
       replicas: 1
     volumes:
