@@ -29,7 +29,7 @@ services:
       replicas: 1
     volumes:
       - transmission:/transmission
-      # - plex_data:/transmission/download
+      - plex_data:/transmission/download
     ports:
       - '51413:51413'
       - '9091:9091'
