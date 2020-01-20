@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   plex:
     image: plexinc/pms-docker
@@ -39,6 +39,26 @@ networks:
   media:
 volumes:
   plex_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: '/mnt/1GB/docker/volumes'
   plex_temp:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: '/mnt/1GB/docker/volumes'
   plex_database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: '/mnt/1GB/docker/volumes'
   transmission:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: '/mnt/1GB/docker/volumes'
